@@ -23,7 +23,7 @@ public class MonitorServiceImpl implements MonitorService {
     public MonitorInfo getMonitorInfo() {
         StringBuilder diskInfo = new StringBuilder();
         try {
-            String command = "df -hP /"; // Replace "/" with the path you want to monitor
+            String command = "df -hP"; // Replace "/" with the path you want to monitor
 
             Process process = new ProcessBuilder()
                 .command("bash", "-c", command)
@@ -37,7 +37,7 @@ public class MonitorServiceImpl implements MonitorService {
                     String[] parts = line.split("\\s+");
                     diskInfo.append("File System: " + parts[0] + '\n');
                     diskInfo.append("Used Space: " + parts[2] + '\n');
-                    diskInfo.append("Capacity: " + parts[4] + '\n');
+                    diskInfo.append("Capacity: " + parts[4] + "\n\n");
                 }
             }
             int exitCode = process.waitFor();
