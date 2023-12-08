@@ -5,6 +5,7 @@ import com.salty.canvas.service.ImageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +26,7 @@ public class ImageController {
     @Autowired
     ImageService imageService;
     @PostMapping("/putImage")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<URL> putImage(@RequestBody MultipartFile image) {
         return ResponseEntity.ok().body(imageService.putImage(image));
     }
