@@ -1,5 +1,6 @@
 package com.salty.canvas.controller;
 
+import com.salty.canvas.model.URL;
 import com.salty.canvas.service.ImageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ImageController {
     @Autowired
     ImageService imageService;
     @PostMapping("/putImage")
-    public ResponseEntity<String> putImage(@RequestBody MultipartFile image) {
+    public ResponseEntity<URL> putImage(@RequestBody MultipartFile image) {
         return ResponseEntity.ok().body(imageService.putImage(image));
     }
 

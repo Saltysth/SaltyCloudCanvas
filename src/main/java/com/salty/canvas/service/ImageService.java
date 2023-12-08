@@ -1,5 +1,6 @@
 package com.salty.canvas.service;
 
+import com.salty.canvas.model.URL;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -8,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 2023/12/07 14:25
  */
 public interface ImageService {
-    String putImage(MultipartFile image);
+    URL putImage(MultipartFile image);
 
     byte[] getImage(String url);
 }

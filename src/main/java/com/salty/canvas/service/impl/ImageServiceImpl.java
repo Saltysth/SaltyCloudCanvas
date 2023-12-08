@@ -2,6 +2,7 @@ package com.salty.canvas.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import com.salty.canvas.constants.Constants;
+import com.salty.canvas.model.URL;
 import com.salty.canvas.service.ImageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +31,7 @@ public class ImageServiceImpl implements ImageService {
     public String localPath;
 
     @Override
-    public String putImage(MultipartFile image) {
+    public URL putImage(MultipartFile image) {
         //日期，将图片按照年月文件夹，比如2022，1月上传的图保存到202201文件夹下
         String format = DateUtil.format(new Date(), "yyyy_MM");
         String prePath = localPath + "/" + format;
@@ -56,7 +57,7 @@ public class ImageServiceImpl implements ImageService {
         //返回图片访问url
         String res = url + format + "/" + filename;
         log.info("生成URL：" + res);
-        return res;
+        return URL.builder().url(res).build();
     }
 
     @Override
