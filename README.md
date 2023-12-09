@@ -1,2 +1,4 @@
 # SaltyCloudCanvas
-a service to store pictures and provide url
+一个只提供图片存储接口的服务而已
+默认跑在8000端口
+配置类填写需要的路径和url，nginx配置文件自己修改即可

@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * @author wangcong
+ * @author SaltyFish
  * @description
  * @since 2023/12/07 14:25
  */
@@ -32,48 +32,27 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public URL putImage(MultipartFile image) {
-        //日期，将图片按照年月文件夹，比如2022，1月上传的图保存到202201文件夹下
+        // 文件夹命名是按月份的
         String format = DateUtil.format(new Date(), "yyyy_MM");
+        // 检查一下文件夹在不在 不在就补上
         String prePath = localPath + "/" + format;
         File f = new File(prePath);
         if (!f.exists()) {
             f.mkdirs();
         }
-        //获取上传图片名称
-        String filename = image.getOriginalFilename();
-        //拼接的图片路径
-        String filepath = prePath + "/" + filename;
+        //图片路径
+        String filepath = prePath + "/" + image.getOriginalFilename();
         File file = new File(filepath);
         //上传图片
         try {
             image.transferTo(file);
-        } catch (IllegalStateException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        } catch (IllegalStateException | IOException e) {
+            log.error("存图片时出现异常!");
             e.printStackTrace();
         }
-        //返回图片访问url
-        String res = url + format + "/" + filename;
+        // 返回URL
+        String res = url + format + "/" + image.getOriginalFilename();
         log.info("生成URL：" + res);
         return URL.builder().url(res).build();
-    }
-
-    @Override
-    public byte[] getImage(String url) {
-        String fullPath = localPath + url;
-        File file = new File(fullPath);
-        FileInputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream(file);
-            byte[] bytes = new byte[inputStream.available()];
-            inputStream.read(bytes, 0, inputStream.available());
-            inputStream.close();
-            return bytes;
-        } catch (IOException e) {
-            log.error("GetImageError! FullPath: " + fullPath);
-            throw new RuntimeException(e);
-        }
     }
 }

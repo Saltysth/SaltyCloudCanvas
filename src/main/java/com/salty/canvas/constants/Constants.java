@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
- * @author wangcong
+ * @author SaltyFish
  * @description
  * @since 2023/12/07 16:10
  */
